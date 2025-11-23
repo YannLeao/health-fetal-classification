@@ -1,0 +1,33 @@
+\section{Metodologia}
+EXEMPLO:
+
+Nesta seção descrevemos os algoritmos utilizados, o procedimento experimental e a
+validação cruzada adotada.
+
+\subsection{Modelos de Classificação}
+
+Os algoritmos avaliados neste estudo foram:
+
+\begin{itemize}
+    \item \textbf{KNN}: classificador baseado na proximidade entre exemplos;
+    \item \textbf{Naive Bayes}: modelo probabilístico baseado no Teorema de Bayes;
+    \item \textbf{Random Forest}: ensemble de múltiplas árvores de decisão.
+\end{itemize}
+
+Cada modelo foi utilizado com hiperparâmetros padrão da biblioteca \texttt{scikit-learn},
+exceto onde indicado.
+
+\subsection{Procedimento Experimental}
+
+Os dados foram pré-processados por meio de normalização, limpeza de valores ausentes e
+conversão de atributos categóricos quando necessário. Em seguida, os modelos foram
+treinados e avaliados utilizando validação cruzada.
+
+\subsection{Validação Cruzada}
+
+A validação cruzada k-fold foi empregada com $k = 5$. O dataset foi dividido em cinco
+partes estratificadas: em cada iteração, quatro partes foram utilizadas para treino e
+uma para teste. A métrica final foi a média das acurácias obtidas nas cinco iterações.
+
+Este procedimento reduz overfitting e permite uma estimativa mais estável do desempenho
+dos modelos.
