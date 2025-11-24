@@ -4,3 +4,4 @@ numpy>=2.3.5
 jupyter>=1.1.1
 matplotlib>=3.10.7
 seaborn>=0.13.2
+joblib>=1.5.2

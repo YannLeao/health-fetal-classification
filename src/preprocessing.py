@@ -8,6 +8,9 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import joblib
+from sklearn.preprocessing import StandardScaler
+
 
 # --------------------- LOADING & CLEANING -------------------
 
@@ -30,6 +33,7 @@ def split_features_target(df: pd.DataFrame, target: str) -> tuple[pd.DataFrame, 
     x = df.drop(columns=[target])
 
     return x, y
+
 
 # -------------------------- EDA ------------------------------
 
@@ -73,3 +77,23 @@ def plot_correlation_matrix(df: pd.DataFrame):
     sns.heatmap(df.corr(), cmap="coolwarm", annot=False)
     plt.title("Matriz de Correlação")
     plt.show()
+
+
+# --------------------- NORMALIZATION -------------------------
+def fit_and_save_scaler(X: pd.DataFrame, save_path: str) -> StandardScaler:
+    """
+    Ajusta StandardScaler nos dados e salva para reuso.
+    NÃO retorna dados normalizados — isso deve ser feito
+    dentro do cross-validation para evitar data leakage.
+    """
+    scaler = StandardScaler()
+    scaler.fit(X)
+
+    joblib.dump(scaler, save_path)
+    return scaler
+
+
+# -------------------- SAVE DATASETS --------------------------
+def save_processed_dataset(df: pd.DataFrame, path: str):
+    """Salva dataset processado em CSV."""
+    df.to_csv(path, index=False)
