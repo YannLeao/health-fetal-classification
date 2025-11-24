@@ -11,7 +11,8 @@ __pycache__/
 
 # Dados grandes ou sensíveis (não versionados)
 data/external/
-outputs/
+auxil/
+output/
 
 # Configurações de IDE (PyCharm/VSCode)
 .idea/
