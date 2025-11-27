@@ -27,3 +27,6 @@ notebooks/*.ipynb_checkpoints*
 
 # Credenciais
 .env
+
+# Interpretador Python
+.venv
