@@ -66,8 +66,14 @@ def save_metrics_to_csv(grid_object, model_name):
             
     final_df.rename(columns=rename_map, inplace=True)
     
-    os.makedirs('results/metrics', exist_ok=True)
     
-    filepath = f'results/metrics/{model_name}_results.csv'
+    current_file_path = os.path.abspath(__file__)
+    src_dir = os.path.dirname(current_file_path)
+    project_root = os.path.dirname(src_dir)
+    output_dir = os.path.join(project_root, 'results', 'metrics')
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Salvar
+    filepath = os.path.join(output_dir, f'{model_name}_results.csv')
     final_df.to_csv(filepath, index=False)
     print(f"Resultados salvos em: {filepath}")
