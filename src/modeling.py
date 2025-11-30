@@ -41,39 +41,49 @@ def run_classification_experiment(model, param_grid, X, y, model_name):
     
     return grid
 
+
+
 def save_metrics_to_csv(grid_object, model_name):
     """
-    Extrai médias e desvios padrão do GridSearch e salva em CSV.
-    Requisito: Média e desvio padrão para cada algoritmo[cite: 12].
+    Extrai métricas, separa os hiperparâmetros em colunas e salva em CSV.
+    Garante que salva na pasta 'results/metrics' na RAIZ do projeto.
     """
     results = pd.DataFrame(grid_object.cv_results_)
+ 
+    params_df = pd.json_normalize(results['params'])
     
-    cols_to_keep = ['params']
+    metric_cols = []
     metrics = ['accuracy', 'precision', 'recall', 'f1']
     
     for metric in metrics:
-        cols_to_keep.append(f'mean_test_{metric}') # Média
-        cols_to_keep.append(f'std_test_{metric}')  # Desvio Padrão
+        metric_cols.append(f'mean_test_{metric}')
+        metric_cols.append(f'std_test_{metric}')
     
-    final_df = results[cols_to_keep].copy()
+    final_df = pd.concat([params_df, results[metric_cols]], axis=1)
     
+
     rename_map = {}
     for col in final_df.columns:
         if 'mean_test_' in col:
             rename_map[col] = f'Mean {col.replace("mean_test_", "").capitalize()}'
         elif 'std_test_' in col:
             rename_map[col] = f'Std {col.replace("std_test_", "").capitalize()}'
+        else:
+            rename_map[col] = col.capitalize()
             
     final_df.rename(columns=rename_map, inplace=True)
     
+
+    if 'Mean F1' in final_df.columns:
+        final_df = final_df.sort_values(by='Mean F1', ascending=False)
     
     current_file_path = os.path.abspath(__file__)
     src_dir = os.path.dirname(current_file_path)
     project_root = os.path.dirname(src_dir)
     output_dir = os.path.join(project_root, 'results', 'metrics')
+    
     os.makedirs(output_dir, exist_ok=True)
     
-    # Salvar
     filepath = os.path.join(output_dir, f'{model_name}_results.csv')
     final_df.to_csv(filepath, index=False)
-    print(f"Resultados salvos em: {filepath}")
+    print(f"Resultados salvos e tratados em: {filepath}")
