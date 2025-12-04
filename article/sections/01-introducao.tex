@@ -1,17 +1,27 @@
+
 \section{Introdução}
 
-A classificação supervisionada é um dos pilares fundamentais da Aprendizagem de
-Máquina. Seu objetivo é mapear exemplos de entrada em categorias previamente definidas,
-com base em padrões aprendidos a partir de dados rotulados. Nos últimos anos, técnicas
-de classificação tornaram-se amplamente utilizadas em áreas como saúde, finanças,
-visão computacional e processamento de linguagem natural.
+As complicações durante a gravidez representam riscos significativos tanto para a mulher quanto para o desenvolvimento
+fetal, tornando a identificação precoce dessas complicações imperativa para intervenções que salvam
+vidas \cite{Salini2024}. Uma prática convencional entre obstetras é a análise manual de testes de cardiotocografia (CTG),
+um processo que é frequentemente intensivo em trabalho e sujeito a subjetividade e variabilidade
+interobservador \cite{Salini2024}.
 
-Neste trabalho, aplicamos algoritmos clássicos de classificação supervisionada em um
-dataset público. O objetivo é avaliar o desempenho dos modelos utilizando validação
-cruzada, comparar os resultados obtidos e discutir as vantagens e limitações de cada
-abordagem.
+A Cardiotocografia (CTG) é um exame não invasivo e de baixo custo que monitora o bem-estar fetal, registrando a
+frequência cardíaca fetal (FHR) e as contrações uterinas (UC) \cite{Salini2024}. Tradicionalmente, a interpretação da
+CTG baseia-se na análise de características como padrões de FHR, acelerações e desacelerações, mas essa interpretação
+manual é complexa e pode levar à perda de sinais sutis de sofrimento fetal \cite{Salini2024}.
 
-O artigo está organizado da seguinte forma: na Seção 2 discutimos trabalhos
-relacionados; na Seção 3 apresentamos a metodologia experimental; na Seção 4 descrevemos
-o dataset; na Seção 5 apresentamos os resultados; na Seção 6 discutimos os achados; e na
-Seção 7 apresentamos as considerações finais.
+Para superar as limitações da análise manual, o desenvolvimento de modelos eficientes de classificação da saúde fetal
+baseados em aprendizado de máquina (Machine Learning - ML) é crucial para otimizar os recursos médicos e o
+tempo \cite{Salini2024}. Os modelos de ML oferecem o potencial para melhorar significativamente a precisão e a
+eficiência da avaliação da saúde fetal, auxiliando os obstetras na tomada de decisões informadas \cite{Salini2024}.
+
+Este trabalho propõe a utilização e comparação de cinco algoritmos de classificação em um conjunto de dados de CTG.
+Os algoritmos explorados incluem Árvore de Decisão, Vizinhos Mais Próximos (KNN), Naive Bayes, Regressão Logística e
+Redes Neurais MLP \cite{Instruções-Projeto-IA}.
+
+O restante deste artigo está organizado da seguinte forma: a Seção \ref{sec:trabalhos_relacionados} discute trabalhos
+correlatos na classificação da saúde fetal usando ML. A Seção \ref{sec:metodologia} detalha a metodologia experimental,
+incluindo a descrição do conjunto de dados, a análise exploratória e as etapas de pré-processamento e modelagem. Por fim,
+as Seções \ref{sec:resultados} e \ref{sec:conclusao} apresentam os resultados e as considerações finais, respectivamente.
