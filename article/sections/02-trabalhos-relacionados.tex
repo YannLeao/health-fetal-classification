@@ -1,0 +1,30 @@
+\section{Trabalhos Relacionados}
+\label{sec:trabalhos_relacionados}
+
+A aplicação de técnicas de aprendizado de máquina (ML) para a classificação da saúde fetal a partir de dados de
+Cardiotocografia (CTG) tem sido amplamente investigada, visando automatizar e aumentar a precisão do diagnóstico.
+
+O estudo de Salini et al. \cite{Salini2024} aborda a classificação da saúde fetal utilizando diversos modelos de ML
+(incluindo Random Forests, Regressão Logística, Árvores de Decisão, Classificadores de Vetores de Suporte,
+Classificadores por Votação e K-Nearest Neighbors) no conjunto de dados de CTG.
+Os resultados dessa pesquisa indicaram que os modelos de ML implementados alcançaram uma precisão notável de 93\%,
+superando métodos anteriores \cite{Salini2024, Salini2024}.
+Esse trabalho sugere que a integração de modelos de ML pode otimizar a alocação de recursos médicos e a eficiência do
+tempo na avaliação fetal \cite{Salini2024}. Em sua comparação, o algoritmo Random Forest obteve o maior desempenho,
+com 93\% de acurácia, enquanto o KNN e o Gradient Boosting Classifier atingiram 90\% de acurácia \cite{Salini2024}.
+
+Outro estudo relevante, realizado por Hoodbhoy et al. \cite{Hoodbhoy2019}, também utilizou o mesmo conjunto de dados de
+CTG (2126 registros, classificados por obstetras em Normal, Suspeito ou Patológico) para prever o risco
+fetal \cite{Hoodbhoy2019, Hoodbhoy2019}. Os autores aplicaram dez modelos de classificação de ML e utilizaram a técnica
+de Sobreamostragem de Minorias Sintéticas (SMOTE) para lidar com o desbalanceamento dos dados
+(70\% Normal, 20\% Suspeito, 10\% Patológico) \cite{Hoodbhoy2019, Hoodbhoy2019}.
+Foi reportado que o modelo baseado em XGBoost obteve a maior precisão (93\% de acurácia geral no teste) para prever um
+desfecho fetal adverso, superando outros algoritmos testados, como Árvore de Decisão, Random Forest e
+KNN \cite{Hoodbhboy2019, Hoodbhoy2019}. Os autores ressaltam que, embora o XGBoost tenha alta precisão para o estado
+patológico (92\%), sua precisão para o estado suspeito (73\%) foi mais alta que a de outros modelos, sendo crucial
+ter alta precisão para ambas as classes de risco \cite{Hoodbhoy2019}.
+
+Ambos os trabalhos demonstram a viabilidade da classificação automatizada de CTG e reforçam a
+importância da escolha e calibração adequadas dos modelos de ML para obter alta acurácia na identificação de fetos
+de alto risco \cite{Salini2024, Hoodbhoy2019}. Tais estudos utilizam um procedimento experimental similar ao proposto
+neste projeto (comparação de múltiplos classificadores em dados de CTG) \cite{Instruções-Projeto-IA}.

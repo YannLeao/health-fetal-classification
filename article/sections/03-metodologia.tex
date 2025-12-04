@@ -1,0 +1,93 @@
+
+\section{Metodologia Experimental}
+\label{sec:metodologia}
+
+\subsection{Descrição do Dataset}
+\label{subsec:descricao-do-dataset}
+O conjunto de dados utilizado neste estudo é o \textit{Fetal Health Classification}, que contém 2.126
+registros derivados de exames cardiotocográficos (CTG). O dataset possui 21 \textit{features} que
+representam medidas fisiológicas, como indicadores de batimentos cardíacos fetais (FHR), contrações uterinas,
+variabilidade cardíaca e variáveis estatísticas baseadas no histograma de FHR (e.g., \textit{baseline value},
+\textit{accelerations}, \textit{fetal\_movement}, \textit{histogram\_width}, \textit{histogram\_mode}, etc.).
+
+A variável alvo (\textit{fetal\_health}) é categórica e multinível, com três classes: 1 (Normal), 2 (Suspeito) e 3
+(Patológico).
+Inicialmente, a coluna alvo foi convertida de tipo \texttt{float64}
+para \texttt{int64}.
+
+\subsection{Análise Exploratória de Dados (EDA)}
+\label{subsec:analise-exploratoria-de-dados-(eda)}
+A Análise Exploratória de Dados (EDA) e o pré-processamento inicial foram conduzidos com o objetivo de inspecionar a
+qualidade dos dados e preparar a base para a modelagem.
+As etapas de exploração incluíram:
+
+\subsubsection{Ausência de Valores Ausentes e Duplicados}
+O dataset não apresentou valores ausentes, eliminando a necessidade de imputation. No entanto, foram
+identificados 13 dados duplicados. Como esses dados derivam de exames CTG fisiológicos, as duplicatas não possuíam
+significado clínico e foram removidas para evitar o enviesamento de certos modelos, como KNN, Naive Bayes e Redes
+Neurais.
+
+\subsubsection{Distribuições e Outliers}
+Histogramas foram utilizados para visualizar a distribuição das variáveis numéricas, revelando comportamentos
+estatísticos distintos. Muitas \textit{features}, como \textit{fetal\_movement} e
+\textit{severe\_decelerations}, mostraram alta concentração de registros próximos de zero.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\columnwidth]{../results/figures/histograms.png}
+    \caption{Distribuição de todas as variáveis preditoras no dataset (Histogramas).}
+    \label{fig:histogramas}
+\end{figure}
+
+A análise de \textit{outliers} foi realizada visualmente por meio de \textit{boxplots} e quantitativamente pela técnica
+do Intervalo Interquartil (IQR). Observou-se a presença de outliers em várias
+\textit{features}. Decidiu-se manter esses valores extremos, pois eles não são considerados ruído,
+mas sim representações de eventos clínicos raros, como movimentos fetais intensos ou alterações abruptas no padrão de
+variabilidade cardíaca, sendo essenciais para uma modelagem fiel.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\columnwidth]{../results/figures/boxplots.png}
+    \caption{Boxplots das features, evidenciando a presença de outliers.}
+    \label{fig:boxplots}
+\end{figure}
+
+\subsubsection{Distribuição da Variável Alvo e Correlação}
+A distribuição da variável alvo (\textit{fetal\_health}) foi examinada por meio de um gráfico de barras, confirmando um
+forte desbalanceamento com a predominância da classe 1 (Normal). Esse desbalanceamento é comum
+em dados clínicos e será considerado na fase de modelagem.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\columnwidth]{../results/figures/target_distribution.png}
+    \caption{Distribuição das classes da variável alvo (\textit{fetal\_health}).}
+    \label{fig:dist_alvo}
+\end{figure}
+
+A matriz de correlação (Figura~\ref{fig:correlacao}) revelou um padrão complexo. Embora a maioria das
+correlações entre \textit{features} seja baixa (variando entre $\approx -0.25$ e $+0.25$), grupos de variáveis derivadas
+do histograma (\textit{histogram\_mean, histogram\_median} e \textit{histogram\_mode}) mostraram correlação quase
+perfeita ($\approx 1$). Esse achado sugere que, embora o restante das variáveis seja amplamente
+independente (o que favorece algoritmos como Naive Bayes), há redundância dentro do grupo de variáveis do histograma, o
+que pode influenciar modelos sensíveis à multicolinearidade, como a Regressão Logística e
+Redes Neurais.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\columnwidth]{../results/figures/correlation_matrix.png}
+    \caption{Matriz de Correlação entre as features.}
+    \label{fig:correlacao}
+\end{figure}
+
+\subsection{Pré-processamento}
+A etapa final de pré-processamento envolveu a normalização dos dados. Optou-se pelo \textbf{StandardScaler} para
+transformar cada \textit{feature} para média 0 e desvio padrão 1.
+
+Essa escolha é adequada para os modelos de ML que serão comparados, como KNN (baseado em distância), Regressão Logística
+(otimização mais estável) e Naive Bayes Gaussiano (que assume distribuição normal), além de ser mais robusta em cenários
+com a presença de \textit{outliers} quando comparada ao Min-Max Scaling. O \textit{scaler}
+é ajustado apenas nos dados de treino, dentro do procedimento de validação cruzada, para evitar \textit{data leakage}, e
+posteriormente é salvo para uso futuro na fase de modelagem e avaliação.
+
+
+
